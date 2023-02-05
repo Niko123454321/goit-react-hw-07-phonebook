@@ -16,6 +16,24 @@ export class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    // console.log(contacts);
+    const parsContacts = JSON.parse(contacts);
+    // console.log(parsContacts);
+    if (parsContacts) {
+      this.setState({ contacts: parsContacts });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    // console.log('this: ', this.state.contacts);
+    // console.log('prevState: ', prevState.contacts);
+    if (this.state.contacts.length !== prevState.contacts.length) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   isСhecked(name) {
     const { contacts } = this.state;
     const normalizName = name.toLowerCase();
