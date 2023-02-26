@@ -10,13 +10,13 @@ const initialState = {
   filter: '',
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
+const reducer = (state = initialState, { type, payload }) => {
+  switch (type) {
     case ADD_CONTACT:
-      const newContacts = [...state.contacts, action.payload];
+      const newContacts = [...state.contacts, payload];
       return { ...state, contacts: newContacts };
     case DELETE_CONTACT:
-      const result = state.contacts.filter(item => item.id !== action.payload);
+      const result = state.contacts.filter(item => item.id !== payload);
       return { ...state, contacts: result };
     default:
       return state;

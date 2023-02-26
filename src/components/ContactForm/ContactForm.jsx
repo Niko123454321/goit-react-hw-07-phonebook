@@ -1,29 +1,32 @@
-import { useDispatch, useSelector } from 'react-redux';
-
-import PropTypes from 'prop-types';
 import css from './contactForm.module.css';
 import { useState } from 'react';
+import initialState from './initialState';
 
 const ContactForm = ({ onSubmit }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [state, setState] = useState({ ...initialState });
+
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    const newValue = value;
+    setState(prevState => {
+      return { ...prevState, [name]: newValue };
+    });
+  };
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    onSubmit({ name, number });
-    setName('');
-    setNumber('');
+    onSubmit({ ...state });
+    setState({ ...initialState });
   };
+
+  const { name, number } = state;
 
   return (
     <form className={css.form} onSubmit={handleSubmit}>
       <div className={css.formElement}>
         <label>Name</label>
         <input
-          onChange={evt => {
-            // console.log(evt.target.value);
-            setName(evt.target.value);
-          }}
+          onChange={handleChange}
           className={css.input}
           value={name}
           type="text"
@@ -36,9 +39,7 @@ const ContactForm = ({ onSubmit }) => {
       <div className={css.formElement}>
         <label>Number</label>
         <input
-          onChange={evt => {
-            setNumber(evt.target.value);
-          }}
+          onChange={handleChange}
           className={css.input}
           value={number}
           type="tel"
@@ -56,10 +57,6 @@ const ContactForm = ({ onSubmit }) => {
 };
 
 export default ContactForm;
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 // import PropTypes from 'prop-types';
 // import css from './contactForm.module.css';
