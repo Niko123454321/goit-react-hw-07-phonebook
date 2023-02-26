@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
-// import { Component } from 'react';
 import css from './contactForm.module.css';
 import { useState } from 'react';
 
 const ContactForm = ({ onSubmit }) => {
-  // console.log(onSubmit);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -55,35 +53,36 @@ const ContactForm = ({ onSubmit }) => {
   );
 };
 
-// class ContactForm extends Component {
-//   state = {
-//     name: '',
-//     number: '',
-//   };
+export default ContactForm;
 
-//   handleSubmit = evt => {
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+// import PropTypes from 'prop-types';
+// import css from './contactForm.module.css';
+// import { useState } from 'react';
+
+// const ContactForm = ({ onSubmit }) => {
+//   const [name, setName] = useState('');
+//   const [number, setNumber] = useState('');
+
+//   const handleSubmit = evt => {
 //     evt.preventDefault();
-//     this.props.onSubmit({ ...this.state });
-//     this.setState({ name: '', number: '' });
+//     onSubmit({ name, number });
+//     setName('');
+//     setNumber('');
 //   };
 
-//   onInputChenge = ({ target }) => {
-//     const { name, value } = target;
-//     this.setState({
-//       [name]: value,
-//     });
-//   };
-
-//   render() {
-//     const { handleSubmit, onInputChenge } = this;
-//     const { name, number } = this.state;
-// return (
-//   <>
+//   return (
 //     <form className={css.form} onSubmit={handleSubmit}>
 //       <div className={css.formElement}>
 //         <label>Name</label>
 //         <input
-//           onChange={onInputChenge}
+//           onChange={evt => {
+//             // console.log(evt.target.value);
+//             setName(evt.target.value);
+//           }}
 //           className={css.input}
 //           value={name}
 //           type="text"
@@ -96,7 +95,9 @@ const ContactForm = ({ onSubmit }) => {
 //       <div className={css.formElement}>
 //         <label>Number</label>
 //         <input
-//           onChange={onInputChenge}
+//           onChange={evt => {
+//             setNumber(evt.target.value);
+//           }}
 //           className={css.input}
 //           value={number}
 //           type="tel"
@@ -110,13 +111,11 @@ const ContactForm = ({ onSubmit }) => {
 //         Add contact
 //       </button>
 //     </form>
-//   </>
-// );
-//   }
-// }
+//   );
+// };
 
-export default ContactForm;
+// export default ContactForm;
 
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// ContactForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
