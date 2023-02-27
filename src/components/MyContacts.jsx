@@ -1,14 +1,15 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
-import { addContact, deleteContact } from 'redux/actions';
+import { addContact, deleteContact, setFilter } from 'redux/actions';
+
+import { getAllContacts, getFilter } from 'redux/selectots';
 
 const MyContacts = () => {
-  const contacts = useSelector(store => store.contacts);
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector(getAllContacts);
+  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
   const isDublicate = searchName => {
@@ -26,16 +27,14 @@ const MyContacts = () => {
       alert(`${name} is already in your contacts!`);
       return false;
     }
-    const action = addContact({ name, number });
-    dispatch(action);
+    dispatch(addContact({ name, number }));
   };
   const handleDeliteContact = id => {
-    const action = deleteContact(id);
-    dispatch(action);
+    dispatch(deleteContact(id));
   };
 
   const handleFilter = ({ target }) => {
-    setFilter(target.value);
+    dispatch(setFilter(target.value));
   };
 
   const getFilteredContacts = () => {
