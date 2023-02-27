@@ -43,7 +43,7 @@ const MyContacts = () => {
     if (!filter) {
       return contacts;
     }
-    const normalizFilter = filter.payload.toLowerCase();
+    const normalizFilter = filter.toLowerCase();
     const result = contacts.filter(({ name }) => {
       return name.toLowerCase().includes(normalizFilter);
     });
