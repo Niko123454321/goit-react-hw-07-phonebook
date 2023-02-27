@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
-import { addContact, deleteContact, setFilter } from 'redux/actions';
 
-import { getAllContacts, getFilter } from 'redux/selectots';
+import { addContact, deleteContact } from 'redux/contacts/contacts-actions';
+import { setFilter } from 'redux/filter/filter-actions';
+import { getAllContacts } from 'redux/contacts/contacts-selectors';
+import { getFilter } from 'redux/filter/filter-selectors';
 
 const MyContacts = () => {
   const contacts = useSelector(getAllContacts);
@@ -41,7 +43,7 @@ const MyContacts = () => {
     if (!filter) {
       return contacts;
     }
-    const normalizFilter = filter.toLowerCase();
+    const normalizFilter = filter.payload.toLowerCase();
     const result = contacts.filter(({ name }) => {
       return name.toLowerCase().includes(normalizFilter);
     });
