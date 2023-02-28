@@ -7,8 +7,8 @@ import Notiflix from 'notiflix';
 import css from './contactList.module.css';
 
 const ContactList = () => {
-  const contacts = useSelector(getAllContacts);
   const filter = useSelector(getFilter);
+  const contacts = useSelector(getAllContacts);
   const dispatch = useDispatch();
 
   const getFilteredContacts = () => {
