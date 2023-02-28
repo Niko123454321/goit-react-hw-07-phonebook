@@ -1,49 +1,42 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllContacts } from 'redux/contacts/contacts-selectors';
+import { getFilter } from 'redux/filter/filter-selectors';
+import { deleteContact } from 'redux/contacts/contacts-slice';
+
 import css from './contactList.module.css';
 
-const ContactList = ({ removeContacts, items }) => {
-  const contacts = items.map(({ id, name, number }) => (
+const ContactList = () => {
+  const contacts = useSelector(getAllContacts);
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
+
+  const getFilteredContacts = () => {
+    if (!filter) {
+      return contacts;
+    }
+    const normalizFilter = filter.toLowerCase();
+    const result = contacts.filter(({ name }) => {
+      return name.toLowerCase().includes(normalizFilter);
+    });
+    return result;
+  };
+
+  const handleDeliteContact = id => {
+    dispatch(deleteContact(id));
+  };
+
+  const items = getFilteredContacts();
+
+  const myContacts = items.map(({ id, name, number }) => (
     <li key={id} className={css.li}>
       {name}: {number}{' '}
-      <button type="button" onClick={() => removeContacts(id)}>
+      <button type="button" onClick={() => handleDeliteContact(id)}>
         Delite
       </button>
     </li>
   ));
 
-  return <ul>{contacts}</ul>;
+  return <ul>{myContacts}</ul>;
 };
 
 export default ContactList;
-
-// import PropTypes from 'prop-types';
-// import css from './contactList.module.css';
-
-// const ContactList = ({ contacts, deliteContact }) => {
-//   return (
-//     <ul className={css.ul}>
-//       {contacts.map(contact => {
-//         return (
-//           <li key={contact.id} className={css.li}>
-//             {contact.name}: {contact.number}
-//             <button type="button" onClick={() => deliteContact(contact.id)}>
-//               Delite
-//             </button>
-//           </li>
-//         );
-//       })}
-//     </ul>
-//   );
-// };
-
-// export default ContactList;
-
-// ContactList.propTypes = {
-//   contacts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       number: PropTypes.string.isRequired,
-//     })
-//   ),
-//   deliteContact: PropTypes.func.isRequired,
-// };
