@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllContacts } from 'redux/contacts/contacts-selectors';
 import { getFilter } from 'redux/filter/filter-selectors';
 import { deleteContact } from 'redux/contacts/contacts-slice';
+import Notiflix from 'notiflix';
 
 import css from './contactList.module.css';
 
@@ -23,6 +24,7 @@ const ContactList = () => {
 
   const handleDeliteContact = id => {
     dispatch(deleteContact(id));
+    Notiflix.Notify.success('contact successfully deleted');
   };
 
   const items = getFilteredContacts();
