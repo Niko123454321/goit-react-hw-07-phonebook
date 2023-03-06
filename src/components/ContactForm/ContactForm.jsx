@@ -1,15 +1,23 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import css from './contactForm.module.css';
 import Notiflix from 'notiflix';
 import { useState } from 'react';
 import initialState from './initialState';
+import {
+  feachAllContacts,
+  feachAddContact,
+} from 'redux/contacts/contacts-operations';
 import { getAllContacts } from 'redux/contacts/contacts-selectors';
-import { addContact } from 'redux/contacts/contacts-slice';
 
 const ContactForm = () => {
   const [state, setState] = useState({ ...initialState });
   const dispatch = useDispatch();
   const contacts = useSelector(getAllContacts);
+
+  useEffect(() => {
+    dispatch(feachAllContacts());
+  }, [dispatch]);
 
   const isDublicate = searchName => {
     if (
@@ -26,7 +34,7 @@ const ContactForm = () => {
       Notiflix.Notify.failure(`${name} is already in your contacts!`);
       return false;
     }
-    dispatch(addContact({ name, number }));
+    dispatch(feachAddContact({ name, number }));
   };
 
   const handleSubmit = evt => {

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllContacts } from 'redux/contacts/contacts-selectors';
 import { getFilter } from 'redux/filter/filter-selectors';
-import { deleteContact } from 'redux/contacts/contacts-slice';
+import { feachDeleteContsct } from 'redux/contacts/contacts-operations';
 import Notiflix from 'notiflix';
 
 import css from './contactList.module.css';
@@ -23,15 +23,14 @@ const ContactList = () => {
   };
 
   const handleDeliteContact = id => {
-    dispatch(deleteContact(id));
+    dispatch(feachDeleteContsct(id));
     Notiflix.Notify.success('contact successfully deleted');
   };
 
   const items = getFilteredContacts();
-
-  const myContacts = items.map(({ id, name, number }) => (
+  const myContacts = items.map(({ id, name, phone }) => (
     <li key={id} className={css.li}>
-      {name}: {number}{' '}
+      {name}: {phone}{' '}
       <button type="button" onClick={() => handleDeliteContact(id)}>
         Delite
       </button>
