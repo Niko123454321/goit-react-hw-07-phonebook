@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from '../../services/contacts';
 
 export const feachAllContacts = createAsyncThunk(
-  'contacts/feach-all',
+  'contacts/fetchAll',
   async (_, thunkUPI) => {
     try {
       const data = await api.getAllContacts();
@@ -15,7 +15,7 @@ export const feachAllContacts = createAsyncThunk(
 );
 
 export const feachAddContact = createAsyncThunk(
-  'contacts/add',
+  'contacts/addContact',
   async (data, { rejectWithValue }) => {
     try {
       const result = await api.addContact(data);
@@ -27,7 +27,7 @@ export const feachAddContact = createAsyncThunk(
 );
 
 export const feachDeleteContsct = createAsyncThunk(
-  'contact/delete',
+  'contacts/deleteContact',
   async (id, { rejectWithValue }) => {
     try {
       await api.deleteContact(id);
