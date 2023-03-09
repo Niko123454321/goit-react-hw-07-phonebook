@@ -1,16 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
-  feachAllContactsLoading,
-  feachAllContactsSuccess,
-  feachAllContactsError,
-  feachAddContactLoading,
-  feachAddContactSuccess,
-  feachAddContactError,
-  feachDeleteContactLoading,
-  feachDeleteContactSuccess,
-  feachDeleteContactError,
-} from './contacts-actions';
+  feachAllContacts,
+  feachAddContact,
+  feachDeleteContsct,
+} from './contacts-operations';
 
 const initialState = {
   items: [],
@@ -23,37 +17,37 @@ const contactsSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(feachAllContactsLoading, store => {
+      .addCase(feachAllContacts.pending, store => {
         store.isLoading = true;
       })
-      .addCase(feachAllContactsSuccess, (store, { payload }) => {
+      .addCase(feachAllContacts.fulfilled, (store, { payload }) => {
         store.isLoading = false;
         store.items = payload;
       })
-      .addCase(feachAllContactsError, (store, { payload }) => {
+      .addCase(feachAllContacts.rejected, (store, { payload }) => {
         store.isLoading = false;
         store.error = payload;
       })
-      .addCase(feachAddContactLoading, store => {
+      .addCase(feachAddContact.pending, store => {
         store.isLoading = true;
       })
-      .addCase(feachAddContactSuccess, (store, { payload }) => {
+      .addCase(feachAddContact.fulfilled, (store, { payload }) => {
         store.isLoading = false;
         store.items.push(payload);
       })
-      .addCase(feachAddContactError, (store, { payload }) => {
+      .addCase(feachAddContact.rejected, (store, { payload }) => {
         store.isLoading = false;
         store.error = payload;
       })
-      .addCase(feachDeleteContactLoading, store => {
+      .addCase(feachDeleteContsct.pending, store => {
         store.isLoading = true;
       })
-      .addCase(feachDeleteContactSuccess, (store, { payload }) => {
+      .addCase(feachDeleteContsct.fulfilled, (store, { payload }) => {
         store.isLoading = false;
         const index = store.items.findIndex(item => item.id === payload);
         store.items.splice(index, 1);
       })
-      .addCase(feachDeleteContactError, (store, { payload }) => {
+      .addCase(feachDeleteContsct.rejected, (store, { payload }) => {
         store.isLoading = false;
         store.error = payload;
       });
