@@ -29,12 +29,12 @@ const ContactForm = () => {
     }
   };
 
-  const handleAddContact = ({ name, number }) => {
+  const handleAddContact = ({ name, phone }) => {
     if (isDublicate(name)) {
       Notiflix.Notify.failure(`${name} is already in your contacts!`);
       return false;
     }
-    dispatch(feachAddContact({ name, number }));
+    dispatch(feachAddContact({ name, phone }));
   };
 
   const handleSubmit = evt => {
@@ -54,7 +54,7 @@ const ContactForm = () => {
     });
   };
 
-  const { name, number } = state;
+  const { name, phone } = state;
 
   return (
     <form className={css.form} onSubmit={handleSubmit}>
@@ -76,9 +76,9 @@ const ContactForm = () => {
         <input
           onChange={handleChange}
           className={css.input}
-          value={number}
+          value={phone}
           type="tel"
-          name="number"
+          name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
